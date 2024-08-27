@@ -17,7 +17,7 @@ driver.get('https://www.target.com/')
 
 sleep (3)
 
-driver.find_element(By.ID, "search") .send_keys('tea')
+driver.find_element(By.ID, "search") .send_keys('video games')
 
 sleep(3)
 
@@ -29,7 +29,7 @@ driver.find_element(By.XPATH, "//div[@data-test='resultsHeading']")
 #once the actual result is in the Expected result it works? for ex: 'tea'...would 'te' work or 't' as long as its within 'tea'?
 # or 'video games'
 expected_result= driver.find_element(By.XPATH, "//div[@data-test='resultsHeading']").text
-actual_result= 'te'
+actual_result= 'video games'
 
 assert actual_result in expected_result, f"im looking for {expected_result} but instead i got {actual_result}"
 
