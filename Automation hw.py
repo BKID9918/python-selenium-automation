@@ -16,11 +16,11 @@ driver.maximize_window()
 driver.get('https://www.target.com/')
 driver.find_element(By.XPATH, "//span[@class='sc-58ad44c0-3 kwbrXj h-margin-r-x3']").click()
 
-sleep(4)
+sleep(6)
 
 driver.find_element(By.XPATH, "//span[@class='sc-859e7637-0 hHZPQy']").click()
 
-sleep (4)
+sleep (6)
 
 driver.find_element(By.XPATH, "//h1[@class='sc-fe064f5c-0 sc-315b8ab9-2 WObnm gClYfs']")
 

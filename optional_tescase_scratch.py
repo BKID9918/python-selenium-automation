@@ -35,3 +35,6 @@ assert actual_result in expected_result, f"im looking for {expected_result} but 
 
 print('test is good money!')
 
+driver.quit()
+
+
