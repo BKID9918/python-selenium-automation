@@ -2,31 +2,40 @@ from selenium.webdriver.common.by import By
 from behave import given, when, then
 from time import sleep
 
-
-SEARCH_INPUT = (By.NAME, 'q')
-SEARCH_SUBMIT = (By.NAME, 'btnK')
+#from optional_tescase_scratch import actual_result, expected_result
 
 
-@given('Open Google page')
-def open_google(context):
-    context.driver.get('https://www.google.com/')
+@given('Open target main page')
+def open_main(context):
+    context.driver.get('https://www.target.com/')
 
 
-@when('Input {search_word} into search field')
-def input_search(context, search_word):
-    search = context.driver.find_element(*SEARCH_INPUT)
-    search.clear()
-    search.send_keys(search_word)
+@when('Search for a product')
+def search_product(context):
+    # Search field => enter tea
+    context.driver.find_element(By.ID, 'search').send_keys('tea')
+    # Search button => click
+    context.driver.find_element(By.XPATH, "//button[@data-test='@web/Search/SearchButton']").click()
+    sleep(5)  # wait for search results page to load
+
+
+@then('Verify that correct search results shown')
+def verify_results(context):
+    actual_result = context.driver.find_element(By.XPATH, "//div[@data-test='resultsHeading']").text
+    expected_result = 'tea'
+    assert expected_result in actual_result, f'Expected {expected_result}, got actual {actual_result}'
     sleep(4)
 
 
-@when('Click on search icon')
-def click_search_icon(context):
-    context.driver.find_element(*SEARCH_SUBMIT).click()
-    sleep(1)
+@when('Click on Cart icon')
+def click_cart(context):
+    context.driver.find_element(By.CSS_SELECTOR, "[href='/icons/Cart.svg#Cart']").click()
+    sleep(4)
 
 
-@then('Product results for {search_word} are shown')
-def verify_found_results_text(context, search_word):
-    assert search_word.lower() in context.driver.current_url.lower(), \
-        f'Expected query not in {context.driver.current_url.lower()}'
+@then('Verify “Your cart is empty” message')
+def verify_cart_message(context):
+    real_results= context.driver.find_element(By.CSS_SELECTOR,"[class='sc-fe064f5c-0 dtCtuk']").text
+    expected_result= 'Your cart is empty'
+    assert expected_result in real_results, f'Expected {expected_result}, and got {real_results}'
+    sleep(4)
