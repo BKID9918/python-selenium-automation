@@ -2,6 +2,9 @@ from selenium.webdriver.common.by import By
 from behave import given, when, then
 from time import sleep
 
+from optional_tescase_scratch import expected_result
+
+
 #from optional_tescase_scratch import actual_result, expected_result
 
 
@@ -39,3 +42,26 @@ def verify_cart_message(context):
     expected_result= 'Your cart is empty'
     assert expected_result in real_results, f'Expected {expected_result}, and got {real_results}'
     sleep(4)
+
+
+@when('Click Sign In')
+def click_sign_in(context):
+    context.driver.find_element(By.CSS_SELECTOR, "[class='sc-58ad44c0-3 kwbrXj h-margin-r-x3']").click()
+
+
+@when('Click Sign In form navigation menu')
+def click_signin_from_navi_bar(context):
+    context.driver.find_element(By.CSS_SELECTOR,"[data-test='accountNav-signIn']").click()
+
+
+@then('Verify Sign In form opened')
+def verify_login_page_message(context):
+    factual_results= context.driver.find_element(By.CSS_SELECTOR,"[class='sc-fe064f5c-0 sc-315b8ab9-2 WObnm gClYfs']").text
+    expected_answer='Sign into your Target account'
+    assert expected_answer in factual_results, f'Expected {expected_answer} but got {factual_results}'
+
+
+
+
+
+
