@@ -2,7 +2,7 @@ from selenium.webdriver.common.by import By
 from behave import given, when, then
 from time import sleep
 
-from optional_tescase_scratch import expected_result
+#from optional_tescase_scratch import expected_result
 
 
 #from optional_tescase_scratch import actual_result, expected_result
@@ -61,6 +61,17 @@ def verify_login_page_message(context):
     assert expected_answer in factual_results, f'Expected {expected_answer} but got {factual_results}'
 
 
+
+
+@given('Open Target Circle page')
+def open_target_circle(context):
+    context.driver.get('https://www.target.com/circle')
+
+@then('Verify {expected_amount} benefit cells')
+def verify_found_results_text(context, expected_amount):
+    links = context.driver.find_elements(By.CSS_SELECTOR, "[class*='fBbzFg']")
+    expected_amount = int(expected_amount)
+    assert len(links) == int(expected_amount), f'Expected {expected_amount} links but got {len(links)}'
 
 
 
