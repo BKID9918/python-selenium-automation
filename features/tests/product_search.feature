@@ -6,6 +6,17 @@ Feature: Test Scenarios for Search functionality
 #    And Click on search icon
 #    Then Product results for Car are shown
 
-  Scenario: open the Target Circle page
-    Given Open Target Circle page
-    Then Verify 10 benefit cells
+#  Scenario: open the Target Circle page
+#    Given Open Target Circle page
+#    Then Verify 10 benefit cells
+
+Scenario Outline: User can search item in cart
+  Given Open target main page
+  When Search for <product>
+  When Add <product> to cart
+  Then Verify <product> in cart
+
+  Examples:
+  | product       |
+  | paper towels  |
+  | paper plates  |

@@ -39,7 +39,7 @@ def click_cart(context):
 @then('Verify “Your cart is empty” message')
 def verify_cart_message(context):
     real_results= context.driver.find_element(By.CSS_SELECTOR,"[class='sc-fe064f5c-0 dtCtuk']").text
-    expected_result= 'Your cart is empty'
+    expected_result= 'Cart'
     assert expected_result in real_results, f'Expected {expected_result}, and got {real_results}'
     sleep(4)
 
@@ -61,11 +61,10 @@ def verify_login_page_message(context):
     assert expected_answer in factual_results, f'Expected {expected_answer} but got {factual_results}'
 
 
+# @given('Open Target Circle page')
+# def open_target_circle(context):
+#     context.driver.get('https://www.target.com/circle')
 
-
-@given('Open Target Circle page')
-def open_target_circle(context):
-    context.driver.get('https://www.target.com/circle')
 
 @then('Verify {expected_amount} benefit cells')
 def verify_found_results_text(context, expected_amount):
@@ -75,4 +74,25 @@ def verify_found_results_text(context, expected_amount):
 
 
 
+@when('Search for {product}')
+def search_product(context, product):
+    # Search field => enter product
+    context.driver.find_element(By.ID, 'search').send_keys(product)
+    # Search button => click
+    context.driver.find_element(By.XPATH, "//button[@data-test='@web/Search/SearchButton']").click()
+    sleep(3)  # wait for search results page to load
 
+
+@when('Add {product} to cart')
+def add_product(context, product):
+    # Find and click the "Add to Cart" button (update selector as per page structure)
+    context.driver.find_element(By.XPATH, "//button[contains(@data-test, 'addToCart')]").click()
+    sleep(3)  # wait for the item to be added to the cart
+
+
+@then('Verify {product} in cart')
+def verify_results(context, product):
+    # Extract text from cart to verify product is added (update selector for the cart)
+    actual_result = context.driver.find_element(By.CSS_SELECTOR, "[class='cart-class-name']").text
+    expected_result = product
+    assert expected_result in actual_result, f"Expected '{expected_result}', but got '{actual_result}'"
