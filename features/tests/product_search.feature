@@ -13,10 +13,9 @@ Feature: Test Scenarios for Search functionality
 Scenario Outline: User can search item in cart
   Given Open target main page
   When Search for <product>
-  When Add <product> to cart
+  And Add <product> to cart
   Then Verify <product> in cart
 
-  Examples:
-  | product       |
-  | paper towels  |
-  | paper plates  |
+Examples:
+  | product        |
+  | paper towels   |
