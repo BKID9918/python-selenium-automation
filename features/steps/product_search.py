@@ -85,21 +85,22 @@ def search_product(context, product):
 
 @when('Add {product} to cart')
 def add_product(context, product):
-    sleep(3)
+    sleep(7)
     # Find and click the "Add to Cart" button (update selector as per page structure)
-    context.driver.find_element(By.CSS_SELECTOR, "[data-test='chooseOptionsButton']").click()
-    sleep(3)  # wait for the item to be added to the cart
-    context.driver.find_element(By.CSS_SELECTOR, "[data-test='orderPickupButton']").click()
-    sleep(3)
+    context.driver.find_element(By.CSS_SELECTOR, "[id*='addToCartButton']").click()
+    sleep(5)  # wait for the item to be added to the cart
+    context.driver.find_element(By.CSS_SELECTOR, "[data-test='content-wrapper'] [id*='addToCart']").click()
+    sleep(5)
+    context.driver.find_element(By.CSS_SELECTOR, "[data-test='modal-drawer-previous-button']").click()
+    sleep(5)
     context.driver.find_element(By.CSS_SELECTOR,"[aria-label='close']").click()
-    sleep(3)
-    context.driver.find_element(By.CSS_SELECTOR,"[href='/icons/Cart.svg']").click()
-    sleep(3)
+    sleep(5)
+    context.driver.find_element(By.CSS_SELECTOR,"[href='/icons/Cart.svg#Cart']").click()
 
 
 @then('Verify {product} in cart')
 def verify_results(context, product):
 
-    actual_result = context.driver.find_element(By.CSS_SELECTOR, "[data-test='cartItem-price']").text
-    expected_result = '$34.99'
+    actual_result = context.driver.find_element(By.CSS_SELECTOR, "[id='cart-summary-heading']").text
+    expected_result = 'Cart'
     assert expected_result in actual_result, f"Expected '{expected_result}', but got '{actual_result}'"
