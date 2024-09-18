@@ -1,3 +1,5 @@
+from itertools import product
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from behave import given, when, then
@@ -13,41 +15,42 @@ click_cart_icon=(By.CSS_SELECTOR,"[href='/icons/Cart.svg#Cart']")
 
 @given('Open target main page')
 def open_main(context):
-    context.driver.get('https://www.target.com/')
+    # context.driver.get('https://www.target.com/')
+    context.app.main_page.open_main_page()
 
 
-
-
-@when('Search for a product')
-def search_product(context):
+@when('Search for a {product}')
+def search_product(context, product):
     # Search field => enter tea
-    context.driver.find_element(By.ID, 'search').send_keys('tea')
-    # Search button => click
-    context.driver.find_element(By.XPATH, "//button[@data-test='@web/Search/SearchButton']").click()
-    sleep(5)  # wait for search results page to load
+    # context.driver.find_element(By.ID, 'search').send_keys('tea')
+    # # Search button => click
+    # context.driver.find_element(By.XPATH, "//button[@data-test='@web/Search/SearchButton']").click()
+    # sleep(5)  # wait for search results page to load
+    context.app.header.search_product(product)
 
 
-@then('Verify that correct search results shown')
-def verify_results(context):
-    actual_result = context.driver.find_element(By.XPATH, "//div[@data-test='resultsHeading']").text
-    expected_result = 'tea'
-    assert expected_result in actual_result, f'Expected {expected_result}, got actual {actual_result}'
-    sleep(4)
+@then('Verify that correct {product} results shown')
+def verify_results(context, product):
+    # actual_result = context.driver.find_element(By.XPATH, "//div[@data-test='resultsHeading']").text
+    # expected_result = 'tea'
+    # assert expected_result in actual_result, f'Expected {expected_result}, got actual {actual_result}'
+    # sleep(4)
+    context.app.search_results_page.verify_results(product)
 
 
 @when('Click on Cart icon')
 def click_cart(context):
-    context.driver.find_element(By.CSS_SELECTOR, "[href='/icons/Cart.svg#Cart']").click()
-    sleep(4)
-
+    # context.driver.find_element(By.CSS_SELECTOR, "[href='/icons/Cart.svg#Cart']").click()
+    # sleep(4)
+    context.app.header.click_cart()
 
 @then('Verify “Your cart is empty” message')
 def verify_cart_message(context):
-    real_results= context.driver.find_element(By.CSS_SELECTOR,"[class='sc-fe064f5c-0 dtCtuk']").text
-    expected_result= 'Cart'
-    assert expected_result in real_results, f'Expected {expected_result}, and got {real_results}'
-    sleep(4)
-
+    # real_results= context.driver.find_element(By.CSS_SELECTOR,"[class='sc-fe064f5c-0 dtCtuk']").text
+    # expected_result= 'Cart'
+    # assert expected_result in real_results, f'Expected {expected_result}, and got {real_results}'
+    # sleep(4)
+    context.app.verify_cart_empty.verify_cart_message()
 
 @when('Click Sign In')
 def click_sign_in(context):
