@@ -5,7 +5,8 @@ from time import sleep
 from selenium.webdriver.support.wait import WebDriverWait
 
 COLOR_OPTIONS = (By.CSS_SELECTOR, "div[aria-label='Carousel'] li img")
-SELECTED_COLOR = (By.CSS_SELECTOR, "[data-test='@web/VariationComponent'] div")
+SELECTED_COLOR = (By.CSS_SELECTOR,"[data-test='@web/VariationComponent']")
+    # (By.CSS_SELECTOR, "[data-test='@web/VariationComponent'] div")
 
 @given('Open target product {product_id} page')
 def open_target(context, product_id):
@@ -15,9 +16,10 @@ def open_target(context, product_id):
 
 @then('Verify user can click through colors')
 def click_and_verify_colors(context):
-    expected_colors = ['Blue Tint', 'Denim Blue', 'Marine', 'Raven']
+    # expected_colors = ['Blue Tint', 'Denim Blue', 'Marine', 'Raven']
+    # actual_colors = []
+    expected_colors = ['Black', 'Heathered Navy Blue','Red', 'White']
     actual_colors = []
-
     colors = context.driver.find_elements(*COLOR_OPTIONS)  # [webelement1, webelement2, webelement3]
     print(colors)
 
