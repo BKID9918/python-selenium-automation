@@ -1,7 +1,13 @@
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+
 class Page:
 
     def __init__(self, driver):
         self.driver = driver
+        self.wait = WebDriverWait(self.driver, timeout=10)
+
 
     def open_page(self, url):
         self.driver.get(url)
@@ -18,3 +24,28 @@ class Page:
     def input_text(self,text, *locator):
         self.driver.find_element(*locator).send_keys(text)
 
+    def wait_for_element_to_be_visible(self, *locator):
+        self.wait.until(EC.visibility_of_element_located(locator), f' Element by {locator} is not visible')
+
+
+    def wait_to_be_clickable(self, *locator):
+        self.wait.until(EC.element_to_be_clickable(locator), f' Element by {locator} is not clickable')
+
+    def wait_to_be_clickable_click(self, *locator):
+        self.wait.until(EC.element_to_be_clickable(locator), f' Element by {locator} is not clickable').click()
+
+    def verify_text(self, expected_text, *locator):
+        actual_text = self.find_element(*locator).text
+        assert actual_text == expected_text, f'Expected {expected_text} did not match actual {actual_text}'
+
+    def verify_partial_text(self, expected_text, *locator):
+        actual_text = self.find_element(*locator).text
+        assert expected_text in actual_text, f'Expected {expected_text} not shown in actual {actual_text}'
+
+    def verify_results_url(self, expected_url):
+        current_url = self.driver.current_url
+        assert expected_url == current_url, f'Expected {expected_url} but got {current_url}'
+
+    def verify_partial_url(self, expected_partial_url):
+        current_url = self.driver.current_url
+        assert expected_partial_url in  current_url, f'Expected {expected_partial_url} but got {current_url}'
