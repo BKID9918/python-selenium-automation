@@ -59,14 +59,14 @@ def verify_cart_message(context):
     # sleep(4)
     context.app.verify_cart_empty.verify_cart_message()
 
-@when('Click Sign In')
-def click_sign_in(context):
-    context.app.header.click_sign_in()
-
-
-@when('Click Sign In form navigation menu')
-def click_signin_from_navi_bar(context):
-    context.app.header.click_side_menu_signin()
+# @when('Click Sign In')
+# def click_sign_in(context):
+#     context.app.header.click_sign_in()
+#
+#
+# @when('Click Sign In form navigation menu')
+# def click_signin_from_navi_bar(context):
+#     context.app.header.click_side_menu_signin()
 
 
 @then('Verify Sign In form opened')

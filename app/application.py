@@ -6,7 +6,8 @@ from Pages.verify_cart_empty import VerifyEmptyCart
 from Pages.sign_in_account_verify import Signin
 from Pages.verify_product_in_cart import ProductInCart
 from Pages.add_to_cart import Cart
-
+from Pages.open_target_app_pg import TargetAppPage
+from Pages.target_login import TargetLogin
 class Application:
 
     def __init__(self,driver):
@@ -18,4 +19,6 @@ class Application:
         self.sign_in_account_verify = Signin(driver)
         self.verify_product_in_cart = ProductInCart(driver)
         self.add_to_cart = Cart(driver)
+        self.open_target_app_pg = TargetAppPage(driver)
+        self.target_login = TargetLogin(driver)
 
