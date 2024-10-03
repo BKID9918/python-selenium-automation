@@ -1,3 +1,4 @@
+from Pages.email_pw_invalid import EmailPwAccount
 from Pages.header import Header
 from Pages.main_page import MainPage
 from Pages.base_page import Page
@@ -8,6 +9,8 @@ from Pages.verify_product_in_cart import ProductInCart
 from Pages.add_to_cart import Cart
 from Pages.open_target_app_pg import TargetAppPage
 from Pages.target_login import TargetLogin
+from Pages.help_page import HelpPage
+from Pages.email_pw_invalid import EmailPwAccount
 class Application:
 
     def __init__(self,driver):
@@ -21,4 +24,7 @@ class Application:
         self.add_to_cart = Cart(driver)
         self.open_target_app_pg = TargetAppPage(driver)
         self.target_login = TargetLogin(driver)
+        self.help_page = HelpPage(driver)
+        self.email_pw_invalid = EmailPwAccount(driver)
+
 

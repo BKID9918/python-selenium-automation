@@ -9,13 +9,14 @@ Feature: Tests for Target App page
 #    And Close current page
 #    And Return to original window
 
-Scenario:User can open and close Terms and Conditions from sign in page
-    Given Open Target App page
-    When Store original window
-    When  Click Sign In
-    When  Click Sign In form navigation menu
-    And Click on Target terms and conditions link
-    And Switch to the newly opened window
-    Then Verify Terms and Conditions page is opened
-    And User can close new window
-    And Switch back to original window
+
+    Scenario:User can open and enter invalid credentials
+     Given Open Target App page
+     When  Click on Sign In
+     When  Click Sign In on navigation menu
+     When  Click on Email or mobile phone
+     And   Enter email jddd12@gmail.com
+     When  Click on Password field
+     And   Enter password this14u!1
+     When  Click Sign in with password
+     Then  Verify We can't find your account
